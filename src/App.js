@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./App.scss";
 import TodoList from "./Components/TodoList";
+import TodoForm from "./Components/TodoForm";
 
 function App() {
   const [todoList, setTodoList] = useState([
@@ -18,9 +19,24 @@ function App() {
     newTodoList.splice(index, 1);
     setTodoList(newTodoList);
   };
+
+  function handleTodoFormSubmit(formValue) {
+    // thêm một todo mới vào todo hiện tại
+
+    const newTodo = {
+      id: todoList.length + 1,
+      ...formValue, // lấy hết tất cả giá trị có trong formValue
+    };
+    const newTodoList = [...todoList];
+    newTodoList.push(newTodo);
+    setTodoList(newTodoList);
+
+  }
+
   return (
     <div className="app">
       <h1>React hooks</h1>
+      <TodoForm onSubmit={handleTodoFormSubmit} />
       <TodoList todos={todoList} onTodoClick={HandlerTodoClick} />
     </div>
   );
